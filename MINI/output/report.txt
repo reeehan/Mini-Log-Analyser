@@ -1,0 +1,75 @@
+================================================================
+       MINI SOC LOG ANALYZER — SUMMARY REPORT
+================================================================
+  Generated : 2026-03-04 17:22:21
+  Total Log Entries Analyzed : 34
+  Total Alerts Generated     : 7
+
+----------------------------------------
+  EVENT SEVERITY DISTRIBUTION
+----------------------------------------
+  CRITICAL   :     0  
+  HIGH       :    21  █████████████████████
+  MEDIUM     :     3  ███
+  LOW        :     0  
+  INFO       :    10  ██████████
+
+----------------------------------------
+  TOP 10 SOURCE IPs
+----------------------------------------
+  203.0.113.42       :     7 events
+  192.168.1.10       :     6 events
+  192.0.2.99         :     6 events
+  198.51.100.23      :     5 events
+  10.0.0.254         :     3 events
+  10.0.0.5           :     2 events
+  192.168.1.20       :     1 events
+  192.168.1.50       :     1 events
+  192.168.1.30       :     1 events
+  172.16.0.1         :     1 events
+
+----------------------------------------
+  THREAT ALERTS
+----------------------------------------
+  Total : 7
+  HIGH       : 6
+  MEDIUM     : 1
+
+  [HIGH] Brute Force
+    Source IP : 203.0.113.42
+    Count    : 7
+    Detail   : Detected 7 failed login attempts from 203.0.113.42 (threshold: 5)
+
+  [HIGH] Brute Force
+    Source IP : 198.51.100.23
+    Count    : 5
+    Detail   : Detected 5 failed login attempts from 198.51.100.23 (threshold: 5)
+
+  [HIGH] Brute Force
+    Source IP : 192.0.2.99
+    Count    : 6
+    Detail   : Detected 6 failed login attempts from 192.0.2.99 (threshold: 5)
+
+  [HIGH] Suspicious IP
+    Source IP : 203.0.113.42
+    Count    : 7
+    Detail   : Activity detected from blocklisted IP: 203.0.113.42
+
+  [HIGH] Suspicious IP
+    Source IP : 198.51.100.23
+    Count    : 5
+    Detail   : Activity detected from blocklisted IP: 198.51.100.23
+
+  [HIGH] Suspicious IP
+    Source IP : 192.0.2.99
+    Count    : 6
+    Detail   : Activity detected from blocklisted IP: 192.0.2.99
+
+  [MEDIUM] Suspicious IP
+    Source IP : 10.0.0.254
+    Count    : 3
+    Detail   : Activity detected from blocklisted IP: 10.0.0.254
+
+================================================================
+  End of Report
+================================================================

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini SOC Log Analyzer</title>
+    <meta name="description" content="Security Operations Center Log Analyzer — Parse, detect threats, and visualize security events.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- ═══ Header ═══ -->
+    <header class="header">
+        <div class="header-brand">
+            <div class="shield-icon">🛡️</div>
+            <div>
+                <h1>Mini SOC</h1>
+                <span class="header-sub">Log Analyzer</span>
+            </div>
+        </div>
+        <div class="header-status" id="statusIndicator">
+            <span class="status-dot"></span>
+            <span>Ready</span>
+        </div>
+    </header>
+
+    <!-- ═══ Main Content ═══ -->
+    <main class="main">
+
+        <!-- Upload Section -->
+        <section class="section upload-section" id="uploadSection">
+            <h2 class="section-title">
+                <span class="section-icon">📂</span>
+                Log Input
+            </h2>
+
+            <div class="upload-grid">
+                <!-- File Upload -->
+                <div class="upload-card" id="dropZone">
+                    <div class="upload-icon">⬆️</div>
+                    <p class="upload-text">Drag & drop log file here</p>
+                    <p class="upload-hint">or click to browse (.log, .txt)</p>
+                    <input type="file" id="fileInput" accept=".log,.txt,.csv" hidden>
+                </div>
+
+                <!-- OR divider -->
+                <div class="upload-divider">
+                    <span>OR</span>
+                </div>
+
+                <!-- Paste Area -->
+                <div class="paste-card">
+                    <textarea id="logTextarea" placeholder="Paste raw log entries here...&#10;&#10;Example Apache:&#10;192.168.1.10 - - [27/Feb/2026:10:15:32 +0000] &quot;GET /index.html HTTP/1.1&quot; 200 5120 &quot;-&quot; &quot;Mozilla/5.0&quot;&#10;&#10;Example Windows:&#10;2026-02-27 10:15:00 | EventID: 4624 | INFORMATION | Security | An account was logged on. Source: 192.168.1.10"></textarea>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls-bar">
+                <div class="control-group">
+                    <label for="logType">Log Type:</label>
+                    <select id="logType">
+                        <option value="auto">Auto-Detect</option>
+                        <option value="apache">Apache</option>
+                        <option value="windows">Windows Event Log</option>
+                    </select>
+                </div>
+                <div class="control-group buttons">
+                    <button class="btn btn-secondary" id="btnSampleApache">📄 Load Apache Sample</button>
+                    <button class="btn btn-secondary" id="btnSampleWindows">📄 Load Windows Sample</button>
+                    <button class="btn btn-primary" id="btnAnalyze">
+                        <span class="btn-icon">🔍</span>
+                        Analyze Logs
+                    </button>
+                </div>
+            </div>
+
+            <!-- File info display -->
+            <div class="file-info" id="fileInfo" style="display:none;">
+                <span id="fileName"></span>
+                <button class="btn-clear" id="btnClearFile">✕</button>
+            </div>
+        </section>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay" style="display:none;">
+            <div class="spinner"></div>
+            <p>Analyzing logs...</p>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-banner" id="errorBanner" style="display:none;">
+            <span class="error-icon">⚠️</span>
+            <span id="errorText"></span>
+            <button class="btn-clear" id="btnDismissError">✕</button>
+        </div>
+
+        <!-- ═══ Results (hidden until analysis) ═══ -->
+        <div id="resultsContainer" style="display:none;">
+
+            <!-- Dashboard Cards -->
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">📊</span>
+                    Dashboard
+                </h2>
+                <div class="cards-grid">
+                    <div class="stat-card card-total">
+                        <div class="card-icon">📋</div>
+                        <div class="card-value" id="cardTotalEvents">0</div>
+                        <div class="card-label">Total Events</div>
+                    </div>
+                    <div class="stat-card card-threats">
+                        <div class="card-icon">🚨</div>
+                        <div class="card-value" id="cardThreats">0</div>
+                        <div class="card-label">Threats Detected</div>
+                    </div>
+                    <div class="stat-card card-critical">
+                        <div class="card-icon">🔴</div>
+                        <div class="card-value" id="cardCritical">0</div>
+                        <div class="card-label">Critical Alerts</div>
+                    </div>
+                    <div class="stat-card card-ips">
+                        <div class="card-icon">🌐</div>
+                        <div class="card-value" id="cardUniqueIPs">0</div>
+                        <div class="card-label">Unique Source IPs</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Charts Row -->
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">📈</span>
+                    Visualizations
+                </h2>
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Severity Distribution</h3>
+                        <canvas id="severityChart" width="320" height="320"></canvas>
+                        <div class="chart-legend" id="severityLegend"></div>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Events Timeline</h3>
+                        <canvas id="timelineChart" width="600" height="320"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Top IPs -->
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">🌐</span>
+                    Top Source IPs
+                </h2>
+                <div class="ip-bars" id="ipBarsContainer"></div>
+            </section>
+
+            <!-- Threat Alerts Table -->
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">🚨</span>
+                    Threat Alerts
+                    <span class="badge" id="alertCountBadge">0</span>
+                </h2>
+                <div class="table-container">
+                    <table class="data-table" id="alertsTable">
+                        <thead>
+                            <tr>
+                                <th>Severity</th>
+                                <th>Type</th>
+                                <th>Source IP</th>
+                                <th>Count</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="alertsBody"></tbody>
+                    </table>
+                    <div class="empty-state" id="noAlerts" style="display:none;">
+                        <p>✅ No threats detected — all clear!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Log Viewer -->
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">📝</span>
+                    Log Viewer
+                    <span class="badge" id="logCountBadge">0</span>
+                </h2>
+                <div class="log-controls">
+                    <select id="logFilterSeverity">
+                        <option value="all">All Severities</option>
+                        <option value="CRITICAL">Critical</option>
+                        <option value="HIGH">High</option>
+                        <option value="MEDIUM">Medium</option>
+                        <option value="LOW">Low</option>
+                        <option value="INFO">Info</option>
+                    </select>
+                    <input type="text" id="logSearch" placeholder="Search logs...">
+                </div>
+                <div class="log-viewer" id="logViewer"></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Mini SOC Log Analyzer — Security Operations Center Tool</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
