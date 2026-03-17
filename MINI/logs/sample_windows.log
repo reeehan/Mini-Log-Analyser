@@ -1,0 +1,34 @@
+2026-02-27 10:15:00 | EventID: 4624 | INFORMATION | Security | An account was successfully logged on. Source: 192.168.1.10
+2026-02-27 10:15:05 | EventID: 4624 | INFORMATION | Security | An account was successfully logged on. Source: 192.168.1.20
+2026-02-27 10:16:00 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 203.0.113.42
+2026-02-27 10:16:03 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 203.0.113.42
+2026-02-27 10:16:06 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 203.0.113.42
+2026-02-27 10:16:09 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 203.0.113.42
+2026-02-27 10:16:12 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 203.0.113.42
+2026-02-27 10:16:15 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 203.0.113.42
+2026-02-27 10:16:18 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 203.0.113.42
+2026-02-27 10:17:00 | EventID: 4672 | INFORMATION | Security | Special privileges assigned to new logon. Source: 192.168.1.10
+2026-02-27 10:18:00 | EventID: 4720 | INFORMATION | Security | A user account was created. Source: 192.168.1.10
+2026-02-27 10:19:00 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 198.51.100.23
+2026-02-27 10:19:03 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 198.51.100.23
+2026-02-27 10:19:06 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 198.51.100.23
+2026-02-27 10:19:09 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 198.51.100.23
+2026-02-27 10:19:12 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 198.51.100.23
+2026-02-27 10:20:00 | EventID: 7036 | INFORMATION | Service Control Manager | The Windows Firewall service entered the running state.
+2026-02-27 10:21:00 | EventID: 4688 | INFORMATION | Security | A new process has been created. Source: 192.168.1.10
+2026-02-27 10:22:00 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 10.0.0.254
+2026-02-27 10:22:03 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 10.0.0.254
+2026-02-27 10:22:06 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 10.0.0.254
+2026-02-27 10:23:00 | EventID: 1102 | WARNING | Security | The audit log was cleared. Source: 192.168.1.50
+2026-02-27 10:24:00 | EventID: 4648 | INFORMATION | Security | A logon was attempted using explicit credentials. Source: 192.168.1.30
+2026-02-27 10:25:00 | EventID: 4697 | WARNING | Security | A service was installed in the system. Source: 192.168.1.10
+2026-02-27 10:26:00 | EventID: 4624 | INFORMATION | Security | An account was successfully logged on. Source: 10.0.0.5
+2026-02-27 10:27:00 | EventID: 4634 | INFORMATION | Security | An account was logged off. Source: 10.0.0.5
+2026-02-27 10:28:00 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 192.0.2.99
+2026-02-27 10:28:02 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 192.0.2.99
+2026-02-27 10:28:04 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 192.0.2.99
+2026-02-27 10:28:06 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 192.0.2.99
+2026-02-27 10:28:08 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 192.0.2.99
+2026-02-27 10:28:10 | EventID: 4625 | FAILURE | Security | An account failed to log on. Source: 192.0.2.99
+2026-02-27 10:29:00 | EventID: 4624 | INFORMATION | Security | An account was successfully logged on. Source: 172.16.0.1
+2026-02-27 10:30:00 | EventID: 7045 | WARNING | Service Control Manager | A new service was installed. Source: 192.168.1.10
